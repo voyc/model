@@ -1,0 +1,4 @@
+# ignore build output
+html/index.php
+html/min.js
+html/min.css

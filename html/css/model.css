@@ -1,0 +1,28 @@
+#headergear {
+	width:1.1em;
+}
+#headeruser {
+	display:none;
+}
+#svctable {
+	margin:0 1em;
+	border:collapse;
+	border-spacing:0;
+}
+#svctable  td{
+	vertical-align:top;
+	border-bottom:1px solid gray;
+	padding:.2em;
+}
+#svctable  tr:last-child td{
+	border-bottom:0;
+}
+#svctable  td:last-child {
+	font-family:initial;
+}
+#settings-dialog  table {
+	margin:0 1em;
+}
+#settings-dialog td:last-child {
+	max-width:4cm;
+}

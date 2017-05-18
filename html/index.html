@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+		<title>Model</title>
+		<style>[hidden] {display:none ! important;}</style>
+
+<?php if (false) { ?>
+		<link href='normalize.css/normalize.css' rel='stylesheet' type='text/css'></link>
+		<link href='minimal/minimal.css' rel='stylesheet' type='text/css'></link>
+		<link href='minimal/theme/mahagony.css' rel='stylesheet' type='text/css'></link>
+		<link href='icon/icon.css' rel='stylesheet' type='text/css'></link>
+		<link href='css/account.css' rel='stylesheet' type='text/css'></link>
+		<script src="js/namespace.js"></script>
+		<script src="js/model.js"></script>
+		<script src="js/view.js"></script>
+		<script src="js/user.js"></script>
+		<script src="js/account.js"></script>
+		<script src="js/accountview.js"></script>
+		<script src="minimal/minimal.js"></script>
+		<script src='icon/icon.js'></script>
+		<script src='icon/lib/menu.js'></script>
+		<script src='icon/lib/gear.js'></script>
+		<script src='icon/lib/user.js'></script>
+		<script src='icon/lib/spinner.js'></script>
+		<script src='jslib/utils.js'></script>
+		<script src='jslib/dragger.js'></script>
+		<script src='jslib/comm.js'></script>
+		<script src="jslib/observer.js"></script>
+		<script src="jslib/note.js"></script>
+		<script src="jslib/session.js"></script>
+		<script src="jslib/cookie.js"></script>
+		<script src="jslib/browserhistory.js"></script>
+<?php } else { ?>
+<!--<remove>
+		<script src='min.js'></script>
+		<link href='min.css' rel='stylesheet' type='text/css'></link>
+<remove>-->
+<?php } ?>
+	</head>
+
+	<body>
+		<!---- header ----------------------------->
+		<header class='fixed'>
+			<div class='group'>
+				<icon class='bit' type='draw' name='menu' open='leftnav-dialog'></icon>
+				<div class='bit hdr' id='hdrtitle'>Model</div>
+			</div>
+			<div id='headeruser' initially hidden class='group tright'>
+				<div class='bit' id="welcome">
+					<span id="loggedinuser">LoggedInUser</span>
+				</div>
+				<div id='headerlogout' class='bit' id="logoutButton">
+					<button class='anchor' request='logout'>Logout</a>
+				</div>
+				<div id='headerlogin' class='bit' id="loginOrRegister">
+					<button class='anchor' request='login'>Login</button>
+					<button class='anchor' request='register'>Register</button>
+				</div>
+				<icon type='draw' name='user' class='bit' open='user-dialog'></icon>
+			</div>
+			<div id='headergear' class='group tright'>
+				<icon type='draw' name='gear' class='bit' open='settings-dialog'></icon>
+			</div>
+		</header>
+
+		<!---- content ----------------------------->
+		<section id='content-container'>
+			<section class='narrative' id='content-home'>
+				<h1>Home</h1>
+				<h2>Model - Application Framework</h2>
+				<p>Javascript, PHP, Postgres, AJAX</p>
+				<h3>Features</h3>
+				<ul>
+					<li>User Authentication and Management, via the account submodule.</li>
+					<li>Model-View-Controller architecture.</li>
+					<li>Object-oriented design.</li>
+					<li>Event-driven process flow, using the Observer pattern in the jslib submodule.</li>
+					<li>Responsive design.  Automatically adjusts to user's window-size.</li>
+					<li>A framework for AJAX services, using the Comm object in jslib submodule.</li>
+					<li>AJAX navigation honoring the browser's forward and back buttons, via the BrowserHistory object in the jslib submodule.</li>
+					<li>Popup dialogs, modeless and modal, provided by the minimal submodule.</li>
+					<li>Open Source.</li>
+					<li>Efficient, compact code.</li>
+					<li>Supports google closure compiler.</li>
+				</ul>
+			</section>
+			<section hidden class='narrative' id='content-about'>
+				<h1>About</h1>
+				<p>A voyc project, <a href='https://github.com/voyc/model.git'>on github.</a></p>
+				<h3>Submodules</h3>
+				<ul>
+					<li>account</li>
+					<li>jslib</li>
+					<li>icon</li>
+					<li>minimal</li>
+				</ul>
+			</section>
+			<section hidden class='narrative' id='content-profile'>
+				<h1>User Profile</h1>
+				<form id='profile' svc='setprofile'>
+					<p><input id='gender' name='gender' type='text' placeholder='Gender' required pattern='[MFO]{1}' title='M, F, O'></p>
+					<p><input id='photo'  name='photo'  type='text' placeholder='Photo URL' required pattern='[a-zA-Z0-9.]{8,255}' title='Letters and numbers and periods. Length between 8 and 255.'></p>
+					<p><input id='phone'  name='phone'  type='text' placeholder='Phone' required pattern='[0-9]{1,20}' title='Numbers. Length between 1 and 20.'></p>
+					<p class='tright'>
+						<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+						<input type='submit' value='Save' class='submit'>
+					</p>
+				</form>
+			</section>
+		</section>
+		
+		<!---- modeless dialogs ----------------------------------------->
+		<nav initially hidden class='panel popup leftnav blu' id='leftnav-dialog'>
+			<div close class='closex'>&times;</div>
+			<h3>Go To...</h3>
+			<p><button close class='anchor' nav='home'     >Home</button></p>
+			<p><button close class='anchor' nav='about'    >About</button></p>
+			<p><button close class='anchor' nav='profile'  >User Profile</button></p>
+		</nav>
+		<aside initially hidden class='panel popup dropdown blu' id='settings-dialog'>
+			<div close class='closex'>&times;</div>
+			<h3>Settings</h3>
+			<p><input type='checkbox' checked/>Global</p>
+			<p><input type='checkbox'        />Universal</p>
+			<p><input type='checkbox'        />Cosmic</p>
+		</aside>
+		<aside initially hidden class='panel popup dropdown blu' id='user-dialog'>
+			<div close class='closex'>&times;</div>
+			<h3>User</h3>
+			<p><button close class='anchor' request='logout'        >Logout</button></p>
+			<p><button close class='anchor' request='forgotpassword'>Forgot Password</button></p>
+			<p><button close class='anchor' request='changeusername'>Change Username</button></p>
+			<p><button close class='anchor' request='changepassword'>Change Password</button></p>
+			<p><button close class='anchor' request='changeemail'   >Change Email</button></p>
+			<p><button close class='anchor' nav='profile'  >User Profile</button></p>
+		</aside>
+
+		<!---- modal dialog container ----------------------------->
+		<div hidden id='modalcontainer' class='full smoke'>
+			<div class='centered modal'>
+				<div close class='closex'>&times;</div>
+				<h3 id='modaltitle'>Modal Title</h3>
+				<p id='dialog-msg'></p>
+				<div id='dialog'>
+				</div>
+				<div hidden id='wait' class='centered'>
+					<icon type=draw name=spinner class='spin'></icon>
+				</div>
+			</div>
+		</div>
+
+		<!---- forms which will be moved to modal dialog container on open ---->
+		<div hidden id='offscreen'>
+			<form modal id='login' svc='ua' class='dialog' title='Login to Your Account'>
+				<p><input name='both' type='text' placeholder='Username or Email' autofocus required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p><input name='pword' type='password' placeholder='Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Login' class='submit'>
+				</p>
+				<p><input type='button' class='anchor' value='Forget your password?' open='forgotpassword'/></p>
+			</form>
+			<form modal id='register' svc='ua' class='dialog' title='Register a New Account'>
+				<p><input name='uname' type='text' placeholder='Username' autofocus required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p><input name='email' type='text' placeholder='Email' required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p><input name='pword' type='password' placeholder='Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p><input name='pwordc' type='password' placeholder='Confirm Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Register' class='submit'>
+				</p>
+			</form>
+			<form modal id='verify' svc='ua' class='dialog' title='Verify Registration'>
+				<p>A Temporary Identification Code has been sent to your email address.
+				Enter it here along with your password to complete your registration.</p>
+				<p><input name='tic' type='text' placeholder='Temporary Identification Code' autofocus required pattern='[a-zA-Z0-9]{6}'></p>
+				<p><input name='pword' type='password' placeholder='Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Verify' class='submit'>
+				</p>
+			</form>
+			<form modal id='verifyemail' svc='ua' class='dialog' title='Verify New Email'>
+				<p>A Temporary Identification Code has been sent to your new email address.
+				Enter it here along with your password to complete your email change.</p>
+				<p><input name='tic' type='text' placeholder='Temporary Identification Code' autofocus required pattern='[a-zA-Z0-9]{6}'></p>
+				<p><input name='pword' type='password' placeholder='Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Verify' class='submit'>
+				</p>
+			</form>
+			<form modal id='forgotpassword' svc='ua' class='dialog' title='Forgot Password'>
+				<p>You may reset your password.<br/>
+				A Temporary Identification Code will be sent
+				to the email address we have on file for you.</p>
+				<p><input name='both' type='text' placeholder='Username or Email' autofocus required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Send Code' class='submit'>
+				</p>
+			</form>
+			<form modal id='resetpassword' svc='ua' class='dialog' title='Reset Password'>
+				<p>A Temporary Identification Code has been sent to your email address.
+				Enter it here along with a new password.</p>
+				<p><input name='tic' type='password' placeholder='Temporary Identification Code' required pattern='[a-zA-Z0-9]{6}'></p>
+				<p><input name='pnew' type='password' placeholder='New Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p><input name='pnewc' type='password' placeholder='Confirm New Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Change' class='submit'>
+				</p>
+			</form>
+			<form modal id='changepassword' svc='ua' class='dialog' title='Change Password'>
+				<p><input name='pword' type='password' placeholder='Old Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p><input name='pnew' type='password' placeholder='New Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p><input name='pnewc' type='password' placeholder='Confirm New Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Change' class='submit'>
+				</p>
+			</form>
+			<form modal id='changeusername' svc='ua' class='dialog' title='Change Username'>
+				<p><input name='uname' type='text' placeholder='New Username' autofocus required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p><input name='pword' type='password' placeholder='Re-enter Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Change' class='submit'>
+				</p>
+			</form>
+			<form modal id='changeemail' svc='ua' class='dialog' title='Change Email'>
+				<p><input name='email' type='text' placeholder='New Email' required pattern='[a-zA-Z0-9_@.+]{6,100}' title='Letters and numbers or @ or period or underscore. Length between 6 and 100.'></p>
+				<p><input name='pword' type='password' placeholder='Re-enter Password' required pattern='[a-zA-Z0-9@&amp;#$%]{8,255}' title='Letters and numbers or @,&amp;,#,$,%. Length between 8 and 255.'></p>
+				<p class='tright'>
+					<input close type='button' value='Cancel' class='anchor' tabindex='-1'>
+					<input type='submit' value='Change' class='submit'>
+				</p>
+			</form>
+		</div>
+
+		<!---- footer ----------------------------->
+		<br/>
+		<footer>
+			<a class='ftr' href='https://github.com/voyc/model.git'>github</a>
+		</footer>
+	</body>
+</html>
