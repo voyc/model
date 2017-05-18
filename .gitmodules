@@ -1,0 +1,12 @@
+[submodule "php/account"]
+	path = php/account
+	url = https://github.com/voyc/account
+[submodule "html/minimal"]
+	path = html/minimal
+	url = https://github.com/voyc/minimal
+[submodule "html/icon"]
+	path = html/icon
+	url = https://github.com/voyc/icon
+[submodule "html/jslib"]
+	path = html/jslib
+	url = https://github.com/voyc/jslib
