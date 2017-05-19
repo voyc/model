@@ -3,12 +3,12 @@
 	user authentication svc entry point
 **/
 require_once(dirname(__FILE__).'/../../config.php');
-require_once('../phplib/str.php');
-require_once('../phplib/db.php');
-require_once('../phplib/validate.php');
-require_once('../phplib/crypto.php');
-require_once('../phplib/cors.php');
-require_once('../phplib/log.php');
+require_once('account/lib/str.php');
+require_once('account/lib/db.php');
+require_once('account/lib/validate.php');
+require_once('account/lib/crypto.php');
+require_once('account/lib/cors.php');
+require_once('account/lib/log.php');
 
 writeHeader();
 
