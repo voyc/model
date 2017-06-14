@@ -12,16 +12,16 @@ voyc.Model = function () {
 
 voyc.Model.prototype.setup = function () {
 	this.observer = new voyc.Observer();
-	new voyc.View(this.observer);
-	new voyc.User(this.observer);
-	new voyc.Account(this.observer);
-	new voyc.AccountView(this.observer);
+	new voyc.View();
+	new voyc.User();
+	new voyc.Account();
+	new voyc.AccountView();
 
 	// set drawPage method as the callback in BrowserHistory object
 	var self = this;
 	new voyc.BrowserHistory('name', function(pageid) {
 		var event = pageid.split('-')[0];
-		self.observer.publish(new voyc.Note(event+'-requested', 'model', {page:pageid}));
+		self.observer.publish(event+'-requested', 'model', {page:pageid});
 	});
 
 	// server communications
@@ -39,7 +39,7 @@ voyc.Model.prototype.setup = function () {
 	this.observer.subscribe('setprofile-received' ,'model' ,function(note) { self.onSetProfileReceived  (note); });
 	this.observer.subscribe('getprofile-received' ,'model' ,function(note) { self.onGetProfileReceived  (note); });
 
-	this.observer.publish(new voyc.Note('setup-complete', 'model', {}));
+	this.observer.publish('setup-complete', 'model', {});
 	//(new voyc.3).nav('home');
 }
 
@@ -54,9 +54,9 @@ voyc.Model.prototype.onProfileRequested = function(note) {
 		if (!ok) {
 			response = { 'status':'system-error'};
 		}
-		self.observer.publish(new voyc.Note('getprofile-received', 'model', response));
+		self.observer.publish('getprofile-received', 'model', response);
 	});
-	this.observer.publish(new voyc.Note('getprofile-posted', 'model', {}));
+	this.observer.publish('getprofile-posted', 'model', {});
 }
 
 voyc.Model.prototype.onGetProfileReceived = function(note) {
@@ -90,7 +90,7 @@ voyc.Model.prototype.onProfileSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('setprofile-received', 'model', response));
+		self.observer.publish('setprofile-received', 'model', response);
 
 		if (response['status'] == 'ok') {
 			console.log('setprofile success' + response['message']);
@@ -100,7 +100,7 @@ voyc.Model.prototype.onProfileSubmitted = function(note) {
 		}
 	});
 
-	this.observer.publish(new voyc.Note('setprofile-posted', 'model', {}));
+	this.observer.publish('setprofile-posted', 'model', {});
 }
 
 voyc.Model.prototype.onSetProfilePosted = function(note) {

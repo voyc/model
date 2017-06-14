@@ -27,7 +27,6 @@ arr = [
 	('code_url', url + 'jslib/dragger.js'),
 	('code_url', url + 'jslib/comm.js'),
 	('code_url', url + 'jslib/observer.js'),
-	('code_url', url + 'jslib/note.js'),
 	('code_url', url + 'jslib/session.js'),
 	('code_url', url + 'jslib/cookie.js'),
 	('code_url', url + 'jslib/browserhistory.js'),

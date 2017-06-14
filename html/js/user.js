@@ -6,11 +6,12 @@
 	Represents the current user.
 	May be logged-in or anonymous.
 */
-voyc.User = function(observer) {
-	this.observer = observer;
+voyc.User = function() {
 	this.username = '';
 	this.auth = '';
 	this.access = '';
+
+	this.observer = new voyc.Observer();
 
 	var self = this;
 	this.observer.subscribe('login-received'   ,'user' ,function(note) { self.onLoginReceived   (note);});

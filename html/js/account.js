@@ -18,11 +18,11 @@
  Object voyc.AccountView handles display to screen.
 
  */
-voyc.Account = function (observer) {
+voyc.Account = function () {
 	if (voyc.Account._instance) return voyc.Account._instance;
 	voyc.Account._instance = this;
 
-	this.observer = observer;
+	this.observer = new voyc.Observer();
 	
 	var url = '/account/svc/';
 	if (window.location.origin == 'file://') {
@@ -119,14 +119,14 @@ voyc.Account.prototype.onLoginSubmitted = function(note) {
 		if (!ok) {
 			response = { 'status':'system-error'};
 		}
-		self.observer.publish(new voyc.Note('login-received', 'account', response));
+		self.observer.publish('login-received', 'account', response);
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
 			self.requestPending(response);
 		}
 	});
 
-	this.observer.publish(new voyc.Note('login-posted', 'account', {}));
+	this.observer.publish('login-posted', 'account', {});
 }
 
 voyc.Account.prototype.onRegisterSubmitted = function(note) {
@@ -143,7 +143,7 @@ voyc.Account.prototype.onRegisterSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('register-received', 'account', response));
+		self.observer.publish('register-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
@@ -152,7 +152,7 @@ voyc.Account.prototype.onRegisterSubmitted = function(note) {
 		}
 	});
 
-	this.observer.publish(new voyc.Note('register-posted', 'account', {}));
+	this.observer.publish('register-posted', 'account', {});
 }
 
 voyc.Account.prototype.onVerifySubmitted = function(note) {
@@ -169,7 +169,7 @@ voyc.Account.prototype.onVerifySubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('verify-received', 'account', response));
+		self.observer.publish('verify-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
@@ -177,7 +177,7 @@ voyc.Account.prototype.onVerifySubmitted = function(note) {
 		}
 	});
 
-	this.observer.publish(new voyc.Note('verify-posted', 'account', {}));
+	this.observer.publish('verify-posted', 'account', {});
 }
 
 voyc.Account.prototype.onSetupComplete = function(note) {
@@ -189,7 +189,7 @@ voyc.Account.prototype.onSetupComplete = function(note) {
 			if (!ok) {
 				response = { 'status':'system-error'};
 			}
-			self.observer.publish(new voyc.Note('relogin-received', 'account', response));
+			self.observer.publish('relogin-received', 'account', response);
 			if (response['status'] == 'ok') {
 				self.saveSession(response);
 				self.requestPending(response);
@@ -199,11 +199,11 @@ voyc.Account.prototype.onSetupComplete = function(note) {
 				self.clearSession();
 			}
 		});
-		this.observer.publish(new voyc.Note('relogin-posted', 'account', {}));
+		this.observer.publish('relogin-posted', 'account', {});
 	}
 	else {
 		this.clearSession();
-		this.observer.publish(new voyc.Note('restart-anonymous', 'account', {}));
+		this.observer.publish('restart-anonymous', 'account', {});
 	}
 }
 
@@ -217,10 +217,10 @@ voyc.Account.prototype.onLogoutRequested = function(note) {
 			response = { 'status':'system-error'};
 		}
 		self.clearSession();
-		self.observer.publish(new voyc.Note('logout-received', 'account', response));
+		self.observer.publish('logout-received', 'account', response);
 	});
 
-	this.observer.publish(new voyc.Note('logout-posted', 'account', {}));
+	this.observer.publish('logout-posted', 'account', {});
 }
 
 voyc.Account.prototype.onForgotPasswordSubmitted = function(note) {
@@ -237,19 +237,19 @@ voyc.Account.prototype.onForgotPasswordSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('forgotpassword-received', 'account', response));
+		self.observer.publish('forgotpassword-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
 			self.assertAuth('resetpending');
-			self.observer.publish(new voyc.Note('resetpassword-requested', 'account', response));
+			self.observer.publish('resetpassword-requested', 'account', response);
 		}
 		else {
 			self.clearSession();
 		}
 	});
 
-	this.observer.publish(new voyc.Note('forgotpassword-posted', 'account', {}));
+	this.observer.publish('forgotpassword-posted', 'account', {});
 }
 
 voyc.Account.prototype.onResetPasswordSubmitted = function(note) {
@@ -266,7 +266,7 @@ voyc.Account.prototype.onResetPasswordSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('resetpassword-received', 'account', response));
+		self.observer.publish('resetpassword-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
@@ -274,7 +274,7 @@ voyc.Account.prototype.onResetPasswordSubmitted = function(note) {
 		}
 	});
 
-	this.observer.publish(new voyc.Note('resetpassword-posted', 'account', {}));
+	this.observer.publish('resetpassword-posted', 'account', {});
 }
 
 voyc.Account.prototype.onChangePasswordSubmitted = function(note) {
@@ -291,14 +291,14 @@ voyc.Account.prototype.onChangePasswordSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('changepassword-received', 'account', response));
+		self.observer.publish('changepassword-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			console.log('change password successful');
 		}
 	});
 
-	this.observer.publish(new voyc.Note('changepassword-posted', 'account', {}));
+	this.observer.publish('changepassword-posted', 'account', {});
 }
 
 voyc.Account.prototype.onChangeUsernameSubmitted = function(note) {
@@ -315,14 +315,14 @@ voyc.Account.prototype.onChangeUsernameSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('changeusername-received', 'account', response));
+		self.observer.publish('changeusername-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			console.log('change username successful');
 		}
 	});
 
-	this.observer.publish(new voyc.Note('changeusername-posted', 'account', {}));
+	this.observer.publish('changeusername-posted', 'account', {});
 }
 
 voyc.Account.prototype.onChangeEmailSubmitted = function(note) {
@@ -339,7 +339,7 @@ voyc.Account.prototype.onChangeEmailSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('changeemail-received', 'account', response));
+		self.observer.publish('changeemail-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
@@ -348,7 +348,7 @@ voyc.Account.prototype.onChangeEmailSubmitted = function(note) {
 		}
 	});
 
-	this.observer.publish(new voyc.Note('changeemail-posted', 'account', {}));
+	this.observer.publish('changeemail-posted', 'account', {});
 }
 voyc.Account.prototype.onVerifyEmailSubmitted = function(note) {
 	var svcname = note.payload.svc;
@@ -364,7 +364,7 @@ voyc.Account.prototype.onVerifyEmailSubmitted = function(note) {
 			response = { 'status':'system-error'};
 		}
 
-		self.observer.publish(new voyc.Note('verifyemail-received', 'account', response));
+		self.observer.publish('verifyemail-received', 'account', response);
 
 		if (response['status'] == 'ok') {
 			self.saveSession(response);
@@ -373,7 +373,7 @@ voyc.Account.prototype.onVerifyEmailSubmitted = function(note) {
 	});
 
 
-	this.observer.publish(new voyc.Note('verifyemail-posted', 'account', {}));
+	this.observer.publish('verifyemail-posted', 'account', {});
 }
 
 /* utilities */
@@ -444,13 +444,13 @@ voyc.Account.prototype.clearSession = function() {
 
 voyc.Account.prototype.requestPending = function(response) {
  	if (voyc.isUserRegistered()) {
-		this.observer.publish(new voyc.Note('verify-requested', 'account', response));
+		this.observer.publish('verify-requested', 'account', response);
 	}
 	if (voyc.isUserEmailPending()) {
-		this.observer.publish(new voyc.Note('verifyemail-requested', 'account', response));
+		this.observer.publish('verifyemail-requested', 'account', response);
 	}
 	if (voyc.isUserResetPending()) {
-		this.observer.publish(new voyc.Note('resetpassword-requested', 'account', response));
+		this.observer.publish('resetpassword-requested', 'account', response);
 	}
 }
 

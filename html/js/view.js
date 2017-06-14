@@ -4,10 +4,11 @@
  * @constructor
  * A singleton object
  */
-voyc.View = function (observer) {
+voyc.View = function () {
 	if (voyc.View._instance) return voyc.View._instance;
 	voyc.View._instance = this;
-	this.observer = observer;
+
+	this.observer = new voyc.Observer();
 	this.setup();
 }
 
@@ -35,7 +36,7 @@ voyc.View.prototype.attachHandlers = function(element) {
 	for (var i=0; i<navs.length; i++) {
 		navs[i].addEventListener('click', function(e) {
 			var pageid = e.currentTarget.getAttribute('nav');
-			//self.observer.publish(new voyc.Note('nav-requested', 'view', {page:pageid}));
+			//self.observer.publish('nav-requested', 'view', {page:pageid});
 			(new voyc.BrowserHistory).nav(pageid);
 		}, false);
 	}
@@ -60,7 +61,7 @@ voyc.View.prototype.onSubmitClick = function(evt) {
 	var svc = form.id;
 	var inputs = form.elements;
 	var note = svc + '-submitted';
-	this.observer.publish(new voyc.Note(note, 'view', {svc:svc, inputs:inputs}));
+	this.observer.publish(note, 'view', {svc:svc, inputs:inputs});
 	voyc.$('dialog-msg').innerHTML = '';
 }
 

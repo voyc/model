@@ -4,8 +4,8 @@
 	Singleton object.
 	Represents the header and modal dialogs for account events.
 */
-voyc.AccountView = function(observer) {
-	this.observer = observer;
+voyc.AccountView = function() {
+	this.observer = new voyc.Observer();
 	this.uname = '';
 
 	// there are nine account events with modal dialogs
@@ -69,7 +69,7 @@ voyc.AccountView = function(observer) {
 		elem = elems[i];
 		elem.addEventListener('click', function(evt) {
 			var name = evt.currentTarget.getAttribute('request') + '-requested';
-			self.observer.publish(new voyc.Note(name, 'accountview', {}));
+			self.observer.publish(name, 'accountview', {});
 		}, false);
 	}
 }
@@ -80,7 +80,7 @@ voyc.AccountView.prototype.onSubmitClick = function(evt) {
 	var svc = form.id;
 	var inputs = form.elements;
 	var note = svc + '-submitted';
-	this.observer.publish(new voyc.Note(note, 'accountview', {svc:svc, inputs:inputs}));
+	this.observer.publish(note, 'accountview', {svc:svc, inputs:inputs});
 	voyc.$('dialog-msg').innerHTML = '';
 }
 
