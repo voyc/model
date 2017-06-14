@@ -1,9 +1,8 @@
 /**
- * class voyc.Model
- * @param {Object=} observer
- * @constructor
- * A singleton object
- */
+	class voyc.Model
+	@constructor
+	A singleton object
+*/
 voyc.Model = function () {
 	if (voyc.Model._instance) return voyc.Model._instance;
 	voyc.Model._instance = this;

@@ -1,6 +1,5 @@
 /**
  * class voyc.Account
- * @param {Object=} observer
  * @constructor
  * A singleton object
  * Manages user authentication.

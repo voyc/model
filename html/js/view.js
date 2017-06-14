@@ -1,18 +1,16 @@
 /**
  * class voyc.View
- * @param {Object=} observer
  * @constructor
  * A singleton object
  */
 voyc.View = function () {
 	if (voyc.View._instance) return voyc.View._instance;
 	voyc.View._instance = this;
-
-	this.observer = new voyc.Observer();
 	this.setup();
 }
 
 voyc.View.prototype.setup = function () {
+	this.observer = new voyc.Observer();
 
 	// attach handlers to HTML elements in the base html
 	this.attachHandlers();
