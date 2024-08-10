@@ -3,12 +3,10 @@ AJAX application framework
 
 usage:
 
-mkdir vote<br>
-cd vote<br>
-git clone https://github.com/voyc/model.git<br>
-mv model vote<br>
-git submodule update --init --recursive<br>
-git submodule foreach git pull origin master<br>
-
-
+mkdir vote  
+cd vote  
+git clone https://github.com/voyc/model.git  
+mv model vote  
+git submodule update --init --recursive  
+git submodule foreach git pull origin master  
 
